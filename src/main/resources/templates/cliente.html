@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th>
+
+<head th:replace="layout/app :: head"></head>
+
+<body>
+
+	<header th:replace="layout/app :: header"></header>
+
+	<div class="container mt-3">
+		<div class="d-flex">
+			<div class="p-2 flex-grow-1">
+				<h3 th:text="${titulo}" class="my-3"></h3>
+			</div>
+			<div class="p-2"><a class="btn btn-dark" th:href="@{/clientes}">Regresar</a></div>
+		</div>
+		<div class="card text-center">
+			<div class="card-header">
+				Cliente #<span class="fw-bold" th:text="${cliente.id}"></span>
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-4">
+						<img th:if="${cliente.tieneFoto()}" th:src="@{'/uploads/'+ ${cliente.foto}}"
+							class="card-img-top" th:alt="${cliente.foto}">
+						<img th:if="${!cliente.tieneFoto()}" th:src="@{/images/loading_icon.gif}"
+							class="card-img-top" alt="loading">
+					</div>
+					<div class="col-8">
+						<h5 class="card-title">Descripción:</h5>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item"><b>Nombre:</b> <span th:text="${cliente.nombre}"></span></li>
+							<li class="list-group-item"><b>Apellido(s):</b> <span th:text="${cliente.apellido}"></span>
+							</li>
+							<li class="list-group-item"><b>Email:</b> <span th:text="${cliente.email}"></span></li>
+						</ul>
+						<hr>
+						<h5 class="card-title">Acciones:</h5>
+						<a th:href="@{/formulario/} + ${cliente.id}" class="btn btn-outline-info">Editar</a>
+						<a th:href="@{/eliminar/} + ${cliente.id}" class="btn btn-outline-danger"
+							onclick="return confirm('Desea eliminar el registro?')">Eliminar</a>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer text-body-secondary">
+				Fecha de creación: <span th:text="${cliente.createdAt}"></span>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/app :: footer"></footer>
+</body>
+
+</html>
