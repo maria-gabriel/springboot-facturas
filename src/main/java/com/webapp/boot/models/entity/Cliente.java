@@ -1,13 +1,18 @@
 package com.webapp.boot.models.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -37,11 +42,14 @@ public class Cliente implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date createdAt;
 	
+	@OneToMany(mappedBy = "cliente", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	private List<Factura> facturas;
+	
 	private String foto;
 	
 	
 	public Cliente() {
-		// TODO Auto-generated constructor stub
+		facturas = new ArrayList<Factura>();
 	}
 
 	public Cliente(Long id, @NotEmpty(message = "${NotEmpty}") String nombre, @NotEmpty String apellido,
@@ -110,6 +118,17 @@ public class Cliente implements Serializable {
 	public boolean tieneFoto() {
         return foto != null && !foto.isEmpty();
     }
+
+	public List<Factura> getFacturas() {
+		return facturas;
+	}
+
+	public void setFacturas(List<Factura> facturas) {
+		this.facturas = facturas;
+	}
 	
+	public void addFactura(Factura factura) {
+		facturas.add(factura);
+	}
 	
 }
