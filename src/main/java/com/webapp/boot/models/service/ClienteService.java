@@ -8,8 +8,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.webapp.boot.models.dao.ClienteDaoInterface;
+import com.webapp.boot.models.dao.FacturaDaoInterface;
 import com.webapp.boot.models.dao.ProductoDaoInterface;
 import com.webapp.boot.models.entity.Cliente;
+import com.webapp.boot.models.entity.Factura;
 import com.webapp.boot.models.entity.Producto;
 
 import jakarta.transaction.Transactional;
@@ -22,6 +24,9 @@ public class ClienteService implements ClienteServiceInterface {
 	
 	@Autowired
 	private ProductoDaoInterface productoDao;
+	
+	@Autowired
+	private FacturaDaoInterface facturaDao;
 	
 	@Override
 	@Transactional
@@ -60,6 +65,33 @@ public class ClienteService implements ClienteServiceInterface {
 	@Override
 	@Transactional
 	public List<Producto> findByNombre(String term) {
+		//return productoDao.findByNombreLikeIgnoreCase("%"+term+"%");
 		return productoDao.findByNombre(term);
+	}
+
+	@Override
+	@Transactional
+	public void saveFactura(Factura factura) {
+		facturaDao.save(factura);
+		
+	}
+
+	@Override
+	@Transactional
+	public Producto findProductoById(Long id) {
+		return productoDao.findById(id).orElse(null);
+	}
+
+	@Override
+	@Transactional
+	public Factura findFacturaById(Long id) {
+		return facturaDao.findById(id).orElse(null);
+	}
+
+	@Override
+	@Transactional
+	public void deleteFactura(Long id) {
+		facturaDao.deleteById(id);
+		
 	}
 }

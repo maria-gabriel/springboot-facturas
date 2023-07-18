@@ -18,7 +18,8 @@
 		<form th:action="@{/facturas/formulario}" th:object="${factura}" method="post">
 			<div class="mb-3">
 				<label for="nombre" class="form-label">Cliente:</label>
-				<input type="text" class="form-control" th:value="${factura.cliente.nombre} + ' ' + ${factura.cliente.apellido}" disabled>
+				<input type="text" class="form-control"
+					th:value="${factura.cliente.nombre} + ' ' + ${factura.cliente.apellido}" disabled>
 			</div>
 			<div class="mb-3">
 				<label for="descripcion" class="form-label">Descripción:</label>
@@ -37,12 +38,36 @@
 				<input type="text" name="buscar_productos" id="buscar_productos" class="form-control">
 			</div>
 
+			<table th:replace="facturas/items-factura :: itemsFactura"></table>
+			<table class="table table-success table-striped" id="cargarItemProductos">
+				<thead>
+					<tr>
+						<th scope="col">Nombre</th>
+						<th scope="col">Precio</th>
+						<th scope="col" width="20%">Cantidad</th>
+						<th scope="col">Total</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th scope="col"></th>
+						<th scope="col"></th>
+						<th scope="col" width="20%">Sumatoria total:</th>
+						<th><h5 id="sumatoria" class="badge rounded-pill text-bg-success">0</h5></th>
+						<th></th>
+					</tr>
+				</tfoot>
+			</table>
+
 			<button type="submit" class="btn btn-success">Guardar</button>
 		</form>
 	</div>
 
-	<script th:replace="~{facturas/js/auto-productos :: javascript}"></script>
 	<footer th:replace="~{layout/app :: footer}"></footer>
+	<script th:replace="~{facturas/js/auto-productos :: javascript}"></script>
 </body>
 
 </html>

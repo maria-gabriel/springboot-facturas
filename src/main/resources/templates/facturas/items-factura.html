@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th>
+<body>
+	<table class="table d-none" th:fragment="itemsFactura">
+		<tbody id="plantillaItemsFactura">
+		<tr id="row_{ID}">
+			<td class="d-none"><input type="hidden" value="{ID}" name="item_id[]"/></td>
+			<td>{NOMBRE}</td>
+			<td>{PRECIO}</td>
+			<td>
+				<input class="form-control" type="number" value="1" name="cantidad[]" id="cantidad_{ID}" 
+				onchange="itemsHelper.calcularImporte({ID}, {PRECIO}, this.value);" />
+				</td>
+			<td><span class="badge text-bg-secondary" id="total_{ID}">0</span></td>
+			<td><a href="#" class="text-dark" onclick="itemsHelper.deleteProducto({ID})"><i data-feather="trash"></i></a></td>
+		</tr>
+		</tbody>
+	</table>
+</body>
+</html>
