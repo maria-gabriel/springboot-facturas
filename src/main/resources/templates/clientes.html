@@ -35,6 +35,7 @@
 					<td th:text="${cliente.email}"></td>
 					<td th:text="${cliente.createdAt}"></td>
 					<td>
+						<a th:href="@{/facturas/formulario/} + ${cliente.id}" class="btn btn-outline-success">Nueva factura</a>
 						<a th:href="@{/formulario/} + ${cliente.id}" class="btn btn-outline-info">Editar</a>
 						<a th:href="@{/eliminar/} + ${cliente.id}" class="btn btn-outline-danger"
 							onclick="return confirm('Desea eliminar el registro?')">Eliminar</a>

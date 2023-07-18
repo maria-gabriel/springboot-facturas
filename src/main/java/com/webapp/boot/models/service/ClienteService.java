@@ -8,7 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.webapp.boot.models.dao.ClienteDaoInterface;
+import com.webapp.boot.models.dao.ProductoDaoInterface;
 import com.webapp.boot.models.entity.Cliente;
+import com.webapp.boot.models.entity.Producto;
 
 import jakarta.transaction.Transactional;
 
@@ -17,6 +19,9 @@ public class ClienteService implements ClienteServiceInterface {
 
 	@Autowired
 	private ClienteDaoInterface clienteDao;
+	
+	@Autowired
+	private ProductoDaoInterface productoDao;
 	
 	@Override
 	@Transactional
@@ -51,4 +56,10 @@ public class ClienteService implements ClienteServiceInterface {
 	public long total() {
         return clienteDao.count();
     }
+
+	@Override
+	@Transactional
+	public List<Producto> findByNombre(String term) {
+		return productoDao.findByNombre(term);
+	}
 }

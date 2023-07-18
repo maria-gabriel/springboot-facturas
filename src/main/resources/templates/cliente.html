@@ -36,11 +36,39 @@
 						</ul>
 						<hr>
 						<h5 class="card-title">Acciones:</h5>
+						<a th:href="@{/facturas/formulario/} + ${cliente.id}" class="btn btn-outline-success">Nueva factura</a>
 						<a th:href="@{/formulario/} + ${cliente.id}" class="btn btn-outline-info">Editar</a>
 						<a th:href="@{/eliminar/} + ${cliente.id}" class="btn btn-outline-danger"
 							onclick="return confirm('Desea eliminar el registro?')">Eliminar</a>
+							<hr>
 					</div>
 				</div>
+				<div class="row justify-content-center"><h3 th:text="Facturas" class="my-3"></h3></div>
+			<div class="row mt-2" th:if="${#lists.isEmpty(cliente.facturas)}">
+				<div class="alert alert-dark" role="alert">
+					  El cliente no tiene facturas asignadas
+					</div>
+			</div>
+			<div class="row mt-2" th:if="${not #lists.isEmpty(cliente.facturas)}">
+				<table class="table table-success table-striped">
+				 <thead>
+					<tr>
+						<th scope="col">Folio</th>
+						<th scope="col">Descripción</th>
+						<th scope="col">Fecha</th>
+						<th scope="col">Total</th>
+					</tr>
+				</thead>
+				<tbody>
+				<tr th:each="factura: ${cliente.facturas}">
+					<td th:text="${factura.id}"></td>
+					<td th:text="${factura.descripcion}"></td>
+					<td th:text="${factura.createdAt}"></td>
+					<td th:text="${factura.total}"></td>
+				</tr>
+			</tbody>
+				</table>
+			</div>
 			</div>
 			<div class="card-footer text-body-secondary">
 				Fecha de creación: <span th:text="${cliente.createdAt}"></span>

@@ -90,7 +90,7 @@ public class ClienteController {
 	@GetMapping("/formulario")
 	public String formulario (Map<String, Object> model) {
 		Cliente cliente = new Cliente();
-		model.put("titulo", "Nuevo Registro");
+		model.put("titulo", "Nuevo Cliente");
 		model.put("cliente", cliente);
 		
 		return "formulario";
@@ -110,7 +110,7 @@ public class ClienteController {
 			return "redirect:/clientes";
 		}
 		
-		model.put("titulo", "Editar Registro");
+		model.put("titulo", "Editar Cliente");
 		model.put("cliente", cliente);
 		
 		return "formulario";

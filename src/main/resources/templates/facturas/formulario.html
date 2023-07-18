@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th>
+
+<head th:replace="~{layout/app :: head}"></head>
+
+<body>
+
+	<header th:replace="~{layout/app :: header}"></header>
+
+	<div class="container mt-3">
+		<div class="d-flex">
+			<div class="p-2 flex-grow-1">
+				<h3 th:text="${titulo}" class="my-3"></h3>
+			</div>
+			<div class="p-2"><a class="btn btn-dark" th:href="@{/cliente/}+ ${factura.cliente.id}">Regresar</a></div>
+		</div>
+
+		<form th:action="@{/facturas/formulario}" th:object="${factura}" method="post">
+			<div class="mb-3">
+				<label for="nombre" class="form-label">Cliente:</label>
+				<input type="text" class="form-control" th:value="${factura.cliente.nombre} + ' ' + ${factura.cliente.apellido}" disabled>
+			</div>
+			<div class="mb-3">
+				<label for="descripcion" class="form-label">Descripción:</label>
+				<input type="text" class="form-control" th:field="*{descripcion}"
+					th:errorclass="${#fields.hasErrors('descripcion')} ? 'is-invalid'">
+				<div class="form-text" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></div>
+			</div>
+			<div class="mb-3">
+				<label for="observacion" class="form-label">Observación</label>
+				<input type="text" class="form-control" th:field="*{observacion}"
+					th:errorclass="${#fields.hasErrors('observacion')} ? 'is-invalid'">
+				<div class="form-text" th:if="${#fields.hasErrors('observacion')}" th:errors="*{observacion}"></div>
+			</div>
+			<div class="mb-3">
+				<label for="buscar_productos" class="form-label">Buscar producto:</label>
+				<input type="text" name="buscar_productos" id="buscar_productos" class="form-control">
+			</div>
+
+			<button type="submit" class="btn btn-success">Guardar</button>
+		</form>
+	</div>
+
+	<script th:replace="~{facturas/js/auto-productos :: javascript}"></script>
+	<footer th:replace="~{layout/app :: footer}"></footer>
+</body>
+
+</html>
