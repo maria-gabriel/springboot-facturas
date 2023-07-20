@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th>
+
+<head th:replace="~{layout/app :: head}"></head>
+
+<body>
+
+	<header th:replace="~{layout/app :: header}"></header>
+
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-6 card p-5">
+				<form class="form-signin" method="post" th:action="@{/login}">
+		        <h2 class="form-signin-heading mb-3" th:text="${titulo}"></h2>
+		        <p>
+		          <label for="username" class="sr-only">Username</label>
+		          <input type="text" id="username" name="username" class="form-control" placeholder="" required="" autofocus="">
+		        </p>
+		        <p>
+		          <label for="password" class="sr-only">Password</label>
+		          <input type="password" id="password" name="password" class="form-control" placeholder="" required="">
+		        </p>
+				<input name="_csrf" type="hidden" value="p8tLJlEo5M_YPM8LNGrlsVUx9y6uArz1WBRnCL5Qtd4qxW26nvx_R2hK0vz1BPhqUUfRhGII2heWN93Ya3BfPYYyh7geoFiJ">
+		        <button class="btn btn-dark btn-md" type="submit">Ingresar</button>
+		      </form>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="~{layout/app :: footer}"></footer>
+</body>
+
+</html>
