@@ -35,12 +35,14 @@
 							<li class="list-group-item"><b>Email:</b> <span th:text="${cliente.email}"></span></li>
 						</ul>
 						<hr>
+						<div sec:authorize="hasRole('ROLE_ADMIN')">
 						<h5 class="card-title">Acciones:</h5>
 						<a th:href="@{/facturas/formulario/} + ${cliente.id}" class="btn btn-outline-success">Nueva factura</a>
 						<a th:href="@{/formulario/} + ${cliente.id}" class="btn btn-outline-info">Editar</a>
 						<a th:href="@{/eliminar/} + ${cliente.id}" class="btn btn-outline-danger"
 							onclick="return confirm('Desea eliminar el registro?')">Eliminar</a>
 							<hr>
+							</div>
 					</div>
 				</div>
 				<div class="row justify-content-center"><h3 th:text="Facturas" class="my-3"></h3></div>
@@ -57,8 +59,8 @@
 						<th scope="col">Descripción</th>
 						<th scope="col">Fecha</th>
 						<th scope="col">Total</th>
-						<th scope="col"></th>
-						<th scope="col"></th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')" scope="col"></th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')" scope="col"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -67,8 +69,8 @@
 					<td th:text="${factura.descripcion}"></td>
 					<td th:text="${factura.createdAt}"></td>
 					<td th:text="${factura.total}"></td>
-					<th><a th:href="@{/facturas/factura/} + ${factura.id}" class="text-dark">Ver productos</a></th>
-					<th><a th:href="@{/facturas/eliminar/} + ${factura.id}" class="text-dark" onclick="return confirm('Seguro que desea eliminar?')"><i data-feather="trash"></i></a></th>
+					<th sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/facturas/factura/} + ${factura.id}" class="text-dark">Ver productos</a></th>
+					<th sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/facturas/eliminar/} + ${factura.id}" class="text-dark" onclick="return confirm('Seguro que desea eliminar?')"><i data-feather="trash"></i></a></th>
 				</tr>
 			</tbody>
 				</table>

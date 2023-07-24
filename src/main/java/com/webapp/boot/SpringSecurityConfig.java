@@ -1,5 +1,6 @@
 package com.webapp.boot;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,9 +10,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.webapp.boot.auth.handler.LoginHandler;
+
 @Configuration
 public class SpringSecurityConfig {
 
+	@Autowired
+	private LoginHandler successHandler;
+	
 	@Bean
     public static BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -38,28 +44,25 @@ public class SpringSecurityConfig {
          
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests((authz) -> {
-                try {
-                    authz.requestMatchers("/", "/css/**", "/js/**", "/images/**", "/clientes", "/inicio").permitAll()
-                        .requestMatchers("/uploads/**").hasAnyRole("USER")
-                        .requestMatchers("/cliente/**").hasRole("USER")
-                        .requestMatchers("/facturas/**").hasRole("ADMIN")
-                        .requestMatchers("/formulario/**").hasRole("ADMIN")
-                        .requestMatchers("/eliminar/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
-                        .and()
-                        .formLogin()
+
+    	http.authorizeHttpRequests()
+                .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/clientes", "/inicio").permitAll()
+                .requestMatchers("/cliente/**").hasAnyRole("USER")
+                .requestMatchers("/uploads/**").hasAnyRole("USER")
+                .requestMatchers("/formulario/**").hasAnyRole("ADMIN")
+                .requestMatchers("/eliminar/**").hasAnyRole("ADMIN")
+                .requestMatchers("/facturas/**").hasAnyRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .formLogin(login -> login
+                		.loginPage("/login")
+                		.defaultSuccessUrl("/home", true)
                         .permitAll()
-                        .and()
-                        .logout().permitAll();
- 
-                } catch (Exception e) {
-                        e.printStackTrace();
-                }
-            });
+                        .successHandler(successHandler))
+                
+                .logout(logout -> logout.permitAll())
+                .exceptionHandling(handling -> handling.accessDeniedPage("/error_403"));
  
         return http.build();
-            
     }
 }
