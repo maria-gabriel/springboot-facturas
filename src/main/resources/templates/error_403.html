@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th>
+
+<head th:replace="~{layout/app :: head}"></head>
+
+<body>
+
+	<header th:replace="~{layout/app :: header}"></header>
+
+	<div class="container mt-5">
+		<div class="d-flex align-items-center justify-content-center">
+            <div class="text-center">
+                <h1 class="display-1 fw-bold">403</h1>
+                <p class="fs-3">No tienes autorización.</p>
+                <p class="lead">
+                    No tienes permiso para ingresar a este recurso.
+                  </p>
+                <a th:href="@{/}" class="btn btn-primary">Ir a inicio</a>
+            </div>
+        </div>
+	</div>
+
+	<footer th:replace="~{layout/app :: footer}"></footer>
+</body>
+
+</html>

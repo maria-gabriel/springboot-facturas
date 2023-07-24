@@ -12,4 +12,9 @@ public class HomeController {
 		model.addAttribute("titulo", "Inicio");
 		return "home";
 	}
+	
+	@GetMapping("/error_403")
+	public String error() {
+		return "error_403";
+	}
 }
