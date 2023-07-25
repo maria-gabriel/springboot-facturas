@@ -1,7 +1,5 @@
 package com.webapp.boot;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,7 +36,7 @@ public class SpringSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
     	http.authorizeHttpRequests()
-                .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/clientes", "/inicio").permitAll()
+                .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/api/**", "/clientes", "/inicio").permitAll()
                 .requestMatchers("/cliente/**").hasAnyRole("USER")
                 .requestMatchers("/uploads/**").hasAnyRole("USER")
                 .requestMatchers("/formulario/**").hasAnyRole("ADMIN")

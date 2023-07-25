@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,6 +47,11 @@ public class ClienteController {
 	@Autowired
 	private FileServiceInterface fileService;
 
+	@GetMapping("/clientes-api")
+	public @ResponseBody List<Cliente> listar_api(){
+		return clienteService.findAll();
+	}
+	
 	@GetMapping("/clientes")
 	public String clientes(@RequestParam(name="page", defaultValue="0") int page, Model model) {
 		
