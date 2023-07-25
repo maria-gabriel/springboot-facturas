@@ -12,7 +12,10 @@
 			<div class="p-2 flex-grow-1">
 				<h3 th:text="${titulo}" class="my-3"></h3>
 			</div>
-			<div class="p-2"><a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-success" th:href="@{formulario}">Nuevo cliente</a></div>
+			<div class="p-2">
+				<a class="btn btn-secondary" th:href="@{'/clientes'(format=json)}" target="_blank">JSON</a>
+				<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-success" th:href="@{formulario}">Nuevo cliente</a>
+				</div>
 		</div>
 
 		<table class="table table-hover">

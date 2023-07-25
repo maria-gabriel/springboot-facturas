@@ -26,6 +26,7 @@ public class FacturaPdf extends AbstractPdfView {
 	protected void buildPdfDocument(Map<String, Object> model, Document document, PdfWriter writer,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+        response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", "factura_detalle.pdf"));
 		Factura factura = (Factura) model.get("factura");
 		PdfPCell cell = null;
 		

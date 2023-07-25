@@ -3,6 +3,7 @@ package com.webapp.boot.controllers;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,10 +60,12 @@ public class ClienteController {
 		Pageable pageRequest = PageRequest.of(page, 5);
 		
 		Page<Cliente> clientes = clienteService.findAll(pageRequest);
+		List<Cliente> clientesJson = clienteService.findAll();
 		Long totalRegistros = clienteService.total();
 		PageRender<Cliente> pageRender = new PageRender<>("/clientes", clientes);
 		model.addAttribute("titulo", "Clientes");
 		model.addAttribute("clientes", clientes);
+		model.addAttribute("clientesJson", clientesJson);
 		model.addAttribute("page", pageRender);
 		model.addAttribute("total", totalRegistros);
 		

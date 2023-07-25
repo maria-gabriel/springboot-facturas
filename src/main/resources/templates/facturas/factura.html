@@ -13,6 +13,7 @@
 				<h3 th:text="${titulo}" class="my-3"></h3>
 			</div>
 			<div class="p-2">
+				<a class="btn btn-success" th:href="@{'/facturas/factura/' + ${factura.id}(format=xlsx)}" target="_blank">EXCEL</a>
 				<a class="btn btn-danger" th:href="@{'/facturas/factura/' + ${factura.id}(format=pdf)}" target="_blank">PDF</a>
 				<a class="btn btn-dark" th:href="@{/cliente/} + ${factura.getCliente().getId()}">Regresar</a>
 			</div>
