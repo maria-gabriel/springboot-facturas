@@ -3,6 +3,7 @@ package com.webapp.boot.controllers;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,6 +47,11 @@ public class ClienteController {
 	@Autowired
 	private FileServiceInterface fileService;
 
+	@GetMapping("/clientes-api")
+	public @ResponseBody List<Cliente> listar_api(){
+		return clienteService.findAll();
+	}
+	
 	@GetMapping("/clientes")
 	public String clientes(@RequestParam(name="page", defaultValue="0") int page, Model model) {
 		
@@ -59,10 +66,12 @@ public class ClienteController {
 		Pageable pageRequest = PageRequest.of(page, 5);
 		
 		Page<Cliente> clientes = clienteService.findAll(pageRequest);
+		List<Cliente> clientesJson = clienteService.findAll();
 		Long totalRegistros = clienteService.total();
 		PageRender<Cliente> pageRender = new PageRender<>("/clientes", clientes);
 		model.addAttribute("titulo", "Clientes");
 		model.addAttribute("clientes", clientes);
+		model.addAttribute("clientesJson", clientesJson);
 		model.addAttribute("page", pageRender);
 		model.addAttribute("total", totalRegistros);
 		

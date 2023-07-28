@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,9 +45,12 @@ public class Cliente implements Serializable {
 	
 	@Column(name = "created_at")
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date createdAt;
 	
 	@OneToMany(mappedBy = "cliente", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JsonManagedReference
 	private List<Factura> facturas;
 	
 	private String foto;

@@ -28,3 +28,11 @@ INSERT INTO facturas (descripcion, observacion, cliente_id, created_at) VALUES (
 /* INSERT VALUES FACTURAS ITEMS */
 INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES (1, 1, 1);
 INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES (2, 1, 5);
+
+/* INSERT VALUES USERS */
+INSERT INTO users (username, password, enabled) VALUES ('jhon', '$2a$10$QYYKmMDjTXbQiQkKz67l8OBoY4Q5jTR7w0w2FiE12EYVgdmLatGtS', 1);
+INSERT INTO users (username, password, enabled) VALUES ('admin', '$2a$10$i6I.T.e.79R.wNK14mLBB.Sc4eKWeH0Vk0MY3d6hI9n91XVd.VQU.', 1);
+
+INSERT INTO authorities (user_id, authority) VALUES (1, 'ROLE_USER');
+INSERT INTO authorities (user_id, authority) VALUES (2, 'ROLE_USER');
+INSERT INTO authorities (user_id, authority) VALUES (2, 'ROLE_ADMIN');
