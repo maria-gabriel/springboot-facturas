@@ -52,7 +52,7 @@ public class ClienteController {
 		return clienteService.findAll();
 	}
 	
-	@GetMapping("/clientes")
+	@GetMapping({"/clientes", "/"})
 	public String clientes(@RequestParam(name="page", defaultValue="0") int page, Model model) {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

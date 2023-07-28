@@ -14,7 +14,6 @@ import com.webapp.boot.models.service.ClienteServiceInterface;
 @RequestMapping("/api")
 public class ClienteRestController {
 
-	
 	@Autowired
 	private ClienteServiceInterface clienteService;
 
